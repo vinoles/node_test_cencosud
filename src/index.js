@@ -7,7 +7,6 @@ const redisClient = require('./redis_conection');
 
 app.use(cors());
 
-//creamos un cliente
 //Santiago (CL), Zurich (CH), Auckland (NZ), Sydney (AU),  Londres (UK), Georgia (USA)
 
 const cities =  [
@@ -21,16 +20,9 @@ const cities =  [
 
 redisClient.mset(cities);
 
-// var redisClient = redis.createClient();
-// redisClient.on('connect', function() {
-//     console.log('Conectado a Redis Server');
-// });
-
 
 //settings
 app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname + '/views')); // decir donde estará las vistas
-/*crear secciones*/
 
 // middlewares
 app.use(morgan('dev'));// ver informacion del servidor

@@ -9,14 +9,18 @@ router.get('/', async (req, response) => {
     await redisClient.mget(['key1', 'key2', 'key3','key4', 'key5', 'key6'], async function (err, res) {
         var cities = [];
         for (var i = 0; i < res.length; i++) {
-            // if (Math.rand(0, 1) < 0.1) {
-            //     throw new Error('How unfortunate! The API Request Failed')
-            // }
+            var randon = Math.random()*1;
+            if (randon < 0.1) {
+                var date = new Date();
+                var timestamp = date.getTime();
+                var errorMessage = 'How unfortunate! The API Request Failed';
+                redisClient.hset('api.errors', timestamp, errorMessage);
+            }
             
             var data =  await fetch(url+'/'+res[i]);
             data = await data.json();
 
-            if( data['code'] == 403 ) {
+            if( data['code'] == 403 ) { //verificar que no tenga mas permisos por día
                 var date = new Date();
                 var timestamp = date.getTime();
                 redisClient.hset('api.errors', timestamp, data['error']);
@@ -27,7 +31,7 @@ router.get('/', async (req, response) => {
         }
 
         // redisClient.hgetall('api.errors', function(err, keys) {
-        //     console.log("1569972136124: ", keys);
+        //     console.log(keys);
         // });
         
        return response.json(cities);

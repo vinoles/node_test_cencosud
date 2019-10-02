@@ -1,13 +1,5 @@
 # node_test_cencosud
 
-# instalar aplicación:
-_git clone https://github.com/vinoles/node_test_cencosud.git
-_cd node_test_cencosud
-_npm install
-_npm run dev
-
-# node_test_cencosud
-
 ### Instalación 🔧
 
 _Primero debes clonar el repositorio_
